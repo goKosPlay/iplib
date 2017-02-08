@@ -2,7 +2,7 @@ package iplib_test
 
 import (
 	"testing"
-	"../iplib"
+	"github.com/cc123123/iplib"
 )
 
 func TestGetRealIpAddress(t *testing.T) {
