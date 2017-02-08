@@ -1,7 +1,5 @@
 # iplib
 
-## Overview [![GoDoc](https://godoc.org/github.com/cc123123/iplib?status.svg)](https://godoc.org/github.com/cc123123/iplib)
-
 簡易取得實際IP
 
 
