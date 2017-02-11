@@ -7,4 +7,5 @@ import (
 )
 func main() {
 	fmt.Println(iplib.GetRealIpAddress())
+	fmt.Println(iplib.GetIpInformation("0.0.0.0"))
 }

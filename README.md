@@ -21,7 +21,7 @@ import (
 )
 func main() {
 	fmt.Println(iplib.GetRealIpAddress())
-	iplib.GetLocalIAddress()
+	fmt.Println(iplib.GetIpInformation("0.0.0.0"))
 }
 ```
 

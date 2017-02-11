@@ -40,12 +40,19 @@ type MyIp struct {
 func GetRealIpAddress() IpInfo {
 	var myIp MyIp
 	var ipInfo IpInfo
-	getMyInfo("https://api.ipify.org?format=json", &myIp)
-	getMyInfo("https://ipapi.co/"+myIp.Ip+"/json", &ipInfo)
+	getResponseData("https://api.ipify.org?format=json", &myIp)
+	getResponseData("https://ipapi.co/"+myIp.Ip+"/json", &ipInfo)
 	return ipInfo
 }
 
-func getMyInfo(url string, myInterface interface{}) (interface{}, error) {
+//取得IP資訊
+func GetIpInformation(strIp string) IpInfo {
+	var ipinfo IpInfo
+	getResponseData("https://ipapi.co/"+strIp+"/json", &ipinfo)
+	return ipinfo
+}
+
+func getResponseData(url string, myInterface interface{}) (interface{}, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)
