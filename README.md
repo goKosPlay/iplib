@@ -1,4 +1,4 @@
-# iplib
+# iplib [![Build Status](https://travis-ci.org/cc123123/iplib.svg?branch=master)](https://travis-ci.org/cc123123/iplib)
 
 簡易取得實際IP
 
