@@ -7,7 +7,7 @@ import (
 
 func TestGetRealIpAddress(t *testing.T) {
 	k := iplib.GetRealIpAddress()
-	if k.City != "US" {
+	if k.City != "fail" {
 		t.Fatal("city is " + k.City)
 	}
 
