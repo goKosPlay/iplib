@@ -6,9 +6,8 @@ import (
 )
 
 func TestGetRealIpAddress(t *testing.T) {
-	k := iplib.GetRealIpAddress()
-	if k.City != "" {
-		t.Fatal("city is " + k.City)
+	k := iplib.getVersion()
+	if k != "0.1" {
+		t.Fatal("version is wrong")
 	}
-
 }

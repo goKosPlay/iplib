@@ -7,17 +7,6 @@ import (
 	"errors"
 )
 
-//https://ipapi.co/0.0.0.0/json
-//{
-//"ip": "0.0.0.0",
-//"city": "",
-//"region": null,
-//"country": "",
-//"postal": null,
-//"latitude": 0,
-//"longitude": 0,
-//"timezone": "Asia/Taipei"
-//}
 //ip detail
 type IpInfo struct {
 	Ip        string `json:"ip"`
@@ -30,8 +19,6 @@ type IpInfo struct {
 	Timezone  string `json:"timezone"`
 }
 
-//https://api.ipify.org?format=json
-//{"ip":"0.0.0.0"}
 type MyIp struct {
 	Ip string `json:"ip"`
 }
@@ -66,4 +53,8 @@ func getResponseData(url string, myInterface interface{}) (interface{}, error) {
 		return myInterface, nil
 	}
 	return nil, errors.New("not found the object")
+}
+
+func getVersion() string {
+	return "0.1"
 }
