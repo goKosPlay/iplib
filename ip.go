@@ -55,6 +55,6 @@ func getResponseData(url string, myInterface interface{}) (interface{}, error) {
 	return nil, errors.New("not found the object")
 }
 
-func getVersion() string {
+func GetVersion() string {
 	return "0.1"
 }
