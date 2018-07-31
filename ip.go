@@ -3,9 +3,9 @@ package iplib
 import (
 	"net/http"
 	"io/ioutil"
-	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/json-iterator/go"
 )
 
 //ip detail
@@ -27,7 +27,8 @@ func (self *IpMod) GetIp() string {
 }
 
 func (self *IpMod) GetIpDetail() IpList {
-	data, err := getResponseData("https://ipapi.co/"+self.GetIp()+"/json", self.IpInfo)
+	host := fmt.Sprintf("https://ipapi.co/%v/json", self.GetIp())
+	data, err := getResponseData(host, self.IpInfo)
 	if err != nil {
 		panic(err)
 	}
@@ -64,6 +65,7 @@ func getResponseData(url string, jsonStruct interface{}) (interface{}, error) {
 	if err != nil {
 		panic(err)
 	}
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
 	if err := json.Unmarshal([]byte(body), &jsonStruct); err == nil {
 		return jsonStruct, nil
 	}
