@@ -6,7 +6,7 @@
 ## Install
 
 ```
-go get github.com/cc123123/iplib
+go get github.com/goKosPlay/iplib
 ```
 
 ## Example
@@ -16,12 +16,14 @@ package main
 
 //author Kos
 import (
-	 "github.com/cc123123/iplib"
-	"fmt"
+	 "github.com/goKosPlay/iplib"
+	 "fmt"
 )
 func main() {
-	fmt.Println(iplib.GetRealIpAddress())
-	fmt.Println(iplib.GetIpInformation("0.0.0.0"))
+	k := iplab.NewIpMod()
+	fmt.Println(k.GetIp())
+	fmt.Println(k.GetIpDetail()["country_name"])
+	fmt.Println(k.GetSelectIpDetail("0.0.0.0"))
 }
 ```
 

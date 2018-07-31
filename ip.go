@@ -1,45 +1,59 @@
-package iplib
+package main
 
 import (
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
 	"errors"
+	"fmt"
 )
 
 //ip detail
-type IpInfo struct {
-	Ip        string `json:"ip"`
-	City      string `json:"city"`
-	Region    interface{} `json:"region"`
-	Country   string `json:"country"`
-	Postal    interface{} `json:"postal"`
-	Latitude  float32 `json:"latitude"`
-	Longitude float32 `json:"longitude"`
-	Timezone  string `json:"timezone"`
+
+type IpMapData map[string]interface{}
+type IpMod struct {
+	IpAddress NowIP
+	IpInfo    IpDetail
 }
 
-type MyIp struct {
-	Ip string `json:"ip"`
+func (self *IpMod) GetIp() string {
+	data, err := getResponseData("https://api.ipify.org?format=json", self.IpAddress)
+	if err != nil {
+		panic(err)
+	}
+	ip := fmt.Sprintf("%v", data.(IpMapData)["ip"])
+	return ip
 }
 
-//取得真實IP
-func GetRealIpAddress() IpInfo {
-	var myIp MyIp
-	var ipInfo IpInfo
-	getResponseData("https://api.ipify.org?format=json", &myIp)
-	getResponseData("https://ipapi.co/"+myIp.Ip+"/json", &ipInfo)
-	return ipInfo
+func (self *IpMod) GetIpDetail() map[string]string {
+	data, err := getResponseData("https://ipapi.co/"+self.GetIp()+"/json", self.IpInfo)
+	if err != nil {
+		panic(err)
+	}
+	ipDescription := make(map[string]string)
+	for k, v := range data.(IpMapData) {
+		ipDescription[k] = fmt.Sprintf("%v", v)
+	}
+	return ipDescription
 }
 
-//取得IP資訊
-func GetIpInformation(strIp string) IpInfo {
-	var ipinfo IpInfo
-	getResponseData("https://ipapi.co/"+strIp+"/json", &ipinfo)
-	return ipinfo
+func (self *IpMod) GetSelectIpDetail(ip string) map[string]string {
+	data, err := getResponseData("https://ipapi.co/"+ip+"/json", self.IpInfo)
+	if err != nil {
+		panic(err)
+	}
+	ipDescription := make(map[string]string)
+	for k, v := range data.(IpMapData) {
+		ipDescription[k] = fmt.Sprintf("%v", v)
+	}
+	return ipDescription
 }
 
-func getResponseData(url string, myInterface interface{}) (interface{}, error) {
+func NewIpMod() *IpMod {
+	return &IpMod{}
+}
+
+func getResponseData(url string, jsonStruct interface{}) (interface{}, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)
@@ -49,12 +63,8 @@ func getResponseData(url string, myInterface interface{}) (interface{}, error) {
 	if err != nil {
 		panic(err)
 	}
-	if err := json.Unmarshal([]byte(body), &myInterface); err == nil {
-		return myInterface, nil
+	if err := json.Unmarshal([]byte(body), &jsonStruct); err == nil {
+		return jsonStruct, nil
 	}
 	return nil, errors.New("not found the object")
-}
-
-func GetVersion() string {
-	return "0.1"
 }
