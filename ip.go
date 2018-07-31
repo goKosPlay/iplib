@@ -1,4 +1,4 @@
-package main
+package iplib
 
 import (
 	"net/http"

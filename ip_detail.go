@@ -1,4 +1,4 @@
-package main
+package iplib
 
 type IpDetail struct {
 	Ip        string `json:"ip"`
