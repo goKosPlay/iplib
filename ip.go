@@ -11,6 +11,7 @@ import (
 //ip detail
 
 type IpMapData = map[string]interface{}
+type IpList = map[string]string
 type IpMod struct {
 	IpAddress NowIP
 	IpInfo    IpDetail
@@ -25,24 +26,24 @@ func (self *IpMod) GetIp() string {
 	return ip
 }
 
-func (self *IpMod) GetIpDetail() map[string]string {
+func (self *IpMod) GetIpDetail() IpList {
 	data, err := getResponseData("https://ipapi.co/"+self.GetIp()+"/json", self.IpInfo)
 	if err != nil {
 		panic(err)
 	}
-	ipDescription := make(map[string]string)
+	ipDescription := make(IpList)
 	for k, v := range data.(IpMapData) {
 		ipDescription[k] = fmt.Sprintf("%v", v)
 	}
 	return ipDescription
 }
 
-func (self *IpMod) GetSelectIpDetail(ip string) map[string]string {
+func (self *IpMod) GetSelectIpDetail(ip string) IpList {
 	data, err := getResponseData("https://ipapi.co/"+ip+"/json", self.IpInfo)
 	if err != nil {
 		panic(err)
 	}
-	ipDescription := make(map[string]string)
+	ipDescription := make(IpList)
 	for k, v := range data.(IpMapData) {
 		ipDescription[k] = fmt.Sprintf("%v", v)
 	}
