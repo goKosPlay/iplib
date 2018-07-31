@@ -40,7 +40,8 @@ func (self *IpMod) GetIpDetail() IpList {
 }
 
 func (self *IpMod) GetSelectIpDetail(ip string) IpList {
-	data, err := getResponseData("https://ipapi.co/"+ip+"/json", self.IpInfo)
+	host := fmt.Sprintf("https://ipapi.co/%v/json", ip)
+	data, err := getResponseData(host, self.IpInfo)
 	if err != nil {
 		panic(err)
 	}
