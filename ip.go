@@ -10,7 +10,7 @@ import (
 
 //ip detail
 
-type IpMapData map[string]interface{}
+type IpMapData = map[string]interface{}
 type IpMod struct {
 	IpAddress NowIP
 	IpInfo    IpDetail

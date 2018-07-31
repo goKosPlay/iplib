@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 func main()  {
-	k := NewIpMod()
+	k := iplib.NewIpMod()
 	fmt.Println(k.GetIp()) // your remote ip
 	fmt.Println(k.GetIpDetail()) // your remote ip detail
 }
